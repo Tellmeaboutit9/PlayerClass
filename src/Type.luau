@@ -15,11 +15,12 @@ export type Main<t> = {
    Data: t;
    _Player: Player;
    sessionEnd: Signal<>;
-   startProfile: (self: Main<t>, Template: t) -> ();
+   startProfile: (self: Main<t>) -> ();
    End: (self: Main<t>) -> nil;
    onDeath: (self: Main<t>, fn : () -> ()) -> ();
    overrideData: (self: Main<t>, newData : any) -> ();
-   addUserId :(self: Main<t>, UserId: number) -> ();
+   addUserId:(self: Main<t>, UserId: number) -> ();
+   Reconcile: (self : Main<t>) -> ();
 }
 
 return nil

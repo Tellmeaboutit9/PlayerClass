@@ -14,14 +14,15 @@ local Template = {
 
 --/ CONNECTIONS \--
 PlayerClass.PlayerAdded:Connect(function(Player)
-    local Class = PlayerClass.new(Player)
+    local Class = PlayerClass.new(Player, Template)
     Class:addUserId(Player.UserId)
     
     Class.sessionEnd:Connect(function()
         Player:Kick(`Session ended. Please rejoin`)
     end)
 
-    Class:startProfile(Template)
+    Class:startProfile()
+    Class:Reconcile()
 end)
 
 PlayerClass.PlayerRemoving:Connect(function(Player)

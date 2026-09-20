@@ -24,7 +24,7 @@ PlayerClass.Index = {} :: {[Player]: unknown}
 PlayerClass.__index = PlayerClass
 
 --/ FUNCTIONS \--
-function PlayerClass.new<t>(Player: Player): Types.Main<t>?
+function PlayerClass.new<t>(Player: Player, Template : t): Types.Main<t>?
     if typeof(Player) ~= "Player" then
         return nil
     end
@@ -33,6 +33,7 @@ function PlayerClass.new<t>(Player: Player): Types.Main<t>?
 
     self._Player = Player
     self.Data = {}
+    self.Template = Template
     self._Trove = Trove.new()
     self.UserIds = {}
 
@@ -49,8 +50,8 @@ function PlayerClass.new<t>(Player: Player): Types.Main<t>?
     return self
 end
 
-function PlayerClass:Reconcile<t>(Template: t)
-    for i, v in pairs(self.Data) do
+function PlayerClass:Reconcile<t>()
+    for i, v in pairs(self.Template) do
         if not table.find(self.Data, i) then
             table.insert(self.Data, v)
         elseif not self.Data[i] then
@@ -59,7 +60,7 @@ function PlayerClass:Reconcile<t>(Template: t)
     end
 end
 
-function PlayerClass:startProfile<t>(Template : t)
+function PlayerClass:startProfile<t>()
     local Success, result = pcall(function()
         return Datastore:GetAsync(self.Player.UserId)
     end)
@@ -72,8 +73,6 @@ function PlayerClass:startProfile<t>(Template : t)
     if Success then
         self.Data = result
     end
-
-    self:Reconcile(Template)
 end
 
 function PlayerClass:onDeath(fn : () -> ())
