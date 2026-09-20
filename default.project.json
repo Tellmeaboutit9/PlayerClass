@@ -1,0 +1,7 @@
+{
+  "name": "PlayerClass",
+
+  "tree": {
+    "$path": "src"
+  }
+}
