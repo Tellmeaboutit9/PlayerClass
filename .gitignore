@@ -5,6 +5,7 @@
 /*.rbxlx.lock
 /*.rbxl.lock
 
+/Packages
 sourcemap.json
 wally.toml
 wally.lock
